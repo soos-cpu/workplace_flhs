@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_carrier_form_inherit_delivery_jd" model="ir.ui.view">
+        <field name="name">delivery.carrier.form.inherit.deliver.jd</field>
+        <field name="model">delivery.carrier</field>
+        <field name="priority" eval="30"/>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook//page[@name='pricing']" position="before">
+                <page name="jd_delivery" string="京东物流配置"
+                      attrs="{'invisible': [('delivery_type', '!=', 'jd')]}">
+                    <group>
+                        <group>
+                            <button name="action_oauth_jd_delivery" type="object" string="京东授权"/>
+                        </group>
+                        <group>
+                            <field name="jd_access_token"/>
+                            <field name="jd_access_expire"/>
+                            <field name="jd_refresh_token"/>
+                            <field name="jd_refresh_expire"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
