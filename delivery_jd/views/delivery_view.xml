@@ -18,6 +18,8 @@
                             <field name="jd_access_expire"/>
                             <field name="jd_refresh_token"/>
                             <field name="jd_refresh_expire"/>
+                            <field name="customer_code"/>
+                            <field name="business_unit_code"/>
                         </group>
                     </group>
                 </page>

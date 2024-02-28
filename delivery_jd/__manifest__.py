@@ -10,6 +10,7 @@
     "data": [
         "security/security.xml",
         "security/ir.model.access.csv",
+        "data/delivery_data.xml",
         "views/res_config_settings_views.xml",
         "views/delivery_view.xml",
     ],
