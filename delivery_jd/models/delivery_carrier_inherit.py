@@ -148,7 +148,7 @@ class DeliveryCarrier(models.Model):
             raise ValidationError(result['msg'])
         else:
             return [{
-                'exact_price': result['data']['freightPre'],
+                'exact_price': result['data'].get('freightPre') or 0,
                 'tracking_number': result['data']['waybillCode'],
             }]
 
