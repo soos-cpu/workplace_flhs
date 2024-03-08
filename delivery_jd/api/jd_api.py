@@ -101,13 +101,3 @@ class JDApi:
     def ecap_v1_orders_precheck(self, data):
         path = "/ecap/v1/orders/precheck"
         return self._request(path, data)
-
-    # 这个接口比较特殊 用到了odoo内的模型 并且并没有使用物流接口
-    def rate(self, order, carrier):
-        weight_in_kg = 0.0
-        volume_in_m3 = 0.0
-        for line in order.order_line.filtered(lambda l: l.product_id.type in ['product',
-                                                                              'consu'] and not l.is_delivery and not l.display_type and l.product_uom_qty > 0):
-            qty = line.product_uom._compute_quantity(line.product_uom_qty, line.product_id.uom_id)
-            weight_in_kg += (line.product_id.weight or 0.0) * qty
-            volume_in_m3 += (line.product_id.volume or 0.0) * qty
