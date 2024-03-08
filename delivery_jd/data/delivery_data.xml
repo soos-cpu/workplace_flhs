@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
+        <record id="jd_b2c_parcel" model="stock.package.type">
+            <field name="name">京东快递B2C包裹</field>
+            <field name="max_weight">30.0</field>
+            <field name="package_carrier_type">jd</field>
+        </record>
+
         <record id="product_product_delivery_jd" model="product.product">
             <field name="name">京东物流运输</field>
             <field name="default_code">Delivery_JD</field>
@@ -12,14 +18,23 @@
             <field name="invoice_policy">order</field>
         </record>
 
-        <record id="free_delivery_carrier" model="delivery.carrier">
-            <field name="name">京东物流运输</field>
-            <field name="fixed_price">0.0</field>
-            <field name="free_over" eval="True"/>
-            <field name="amount">1000</field>
-            <field name="sequence">1</field>
-            <field name="delivery_type">jd</field>
+        <record id="jd_b2c_edm0001_delivery_carrier" model="delivery.carrier">
+            <field name="name">京东物流-快递B2C-京东标快</field>
             <field name="product_id" ref="delivery_jd.product_product_delivery_jd"/>
+            <field name="delivery_type">jd</field>
+            <field name="jd_order_origin">1</field>
+            <field name="jd_main_product_code">ed-m-0001</field>
+            <!--            <field name="country_ids" eval="[(6, 0, [ref('base.cn')])]"/>-->
+            <field name="jd_default_package_type_id" ref="delivery_jd.jd_b2c_parcel"/>
+        </record>
+
+        <record id="jd_b2c_edm0002_delivery_carrier" model="delivery.carrier">
+            <field name="name">京东物流-快递B2C-京东特快</field>
+            <field name="product_id" ref="delivery_jd.product_product_delivery_jd"/>
+            <field name="delivery_type">jd</field>
+            <field name="jd_order_origin">1</field>
+            <field name="jd_main_product_code">ed-m-0002</field>
+            <field name="jd_default_package_type_id" ref="delivery_jd.jd_b2c_parcel"/>
         </record>
     </data>
 </odoo>

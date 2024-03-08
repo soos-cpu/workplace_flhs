@@ -9,17 +9,21 @@
             <xpath expr="//notebook//page[@name='pricing']" position="before">
                 <page name="jd_delivery" string="京东物流配置"
                       attrs="{'invisible': [('delivery_type', '!=', 'jd')]}">
+                    <button name="action_oauth_jd_delivery" type="object" string="京东授权"
+                            class="btn btn-sm btn-primary float-end mb0 o_cell o_wrap_label flex-grow-1 flex-sm-grow-0 w-100 text-break"/>
                     <group>
-                        <group>
-                            <button name="action_oauth_jd_delivery" type="object" string="京东授权"/>
-                        </group>
                         <group>
                             <field name="jd_access_token"/>
                             <field name="jd_access_expire"/>
-                            <field name="jd_refresh_token"/>
-                            <field name="jd_refresh_expire"/>
-                            <field name="customer_code"/>
-                            <field name="business_unit_code"/>
+                        </group>
+                        <group>
+                            <!--                            <field name="jd_refresh_token"/>-->
+                            <!--                            <field name="jd_refresh_expire"/>-->
+                            <field name="jd_order_origin" attrs="{'required':[('delivery_type','=','jd')]}"/>
+                            <field name="jd_customer_code" attrs="{'required':[('jd_order_origin','=','1')]}"/>
+                            <field name="jd_business_unit_code" attrs="{'required':[('jd_order_origin','=','4')]}"/>
+                            <field name="jd_main_product_code" attrs="{'required':[('delivery_type','=','jd')]}"/>
+                            <field name="jd_default_package_type_id" attrs="{'required':[('delivery_type','=','jd')]}"/>
                         </group>
                     </group>
                 </page>
