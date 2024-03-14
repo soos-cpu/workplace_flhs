@@ -170,9 +170,9 @@ class DeliveryCarrier(models.Model):
         val = {
             "orderId": picking.origin,
             "senderContact": {
-                "name": self.env.company.name,
-                "mobile": self.env.company.mobile,
-                "phone": self.env.company.phone,
+                "name": order.company_id.name,
+                "mobile": order.company_id.mobile,
+                "phone": order.company_id.phone,
                 "fullAddress": order.company_id.partner_id._display_address()
             },
             "receiverContact": {

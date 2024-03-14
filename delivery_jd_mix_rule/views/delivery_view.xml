@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_delivery_carrier_form_inherit_delivery_jd_mix_rule" model="ir.ui.view">
+        <field name="name">delivery.carrier.form.inherit.deliver.jd.mix_rule</field>
+        <field name="model">delivery.carrier</field>
+        <field name="priority" eval="30"/>
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook//page[@name='pricing']" position="attributes">
+                <attribute name="attrs">
+                    {'invisible': [('delivery_type', 'not in', ['fixed', 'base_on_rule', 'jd_mix_rule'])]}
+                </attribute>
+            </xpath>
+            <xpath expr="//notebook//page[@name='pricing']//group[@name='general']" position="attributes">
+                <attribute name="attrs">
+                    {'invisible': [('delivery_type', 'not in', ['base_on_rule', 'jd_mix_rule'])]}
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

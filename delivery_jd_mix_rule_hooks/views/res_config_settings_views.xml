@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.deliver.jd.mix.rule.hooks</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="30"/>
+            <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='compute_shipping_costs_sendcloud']" position="after">
+                    <div class="col-12 col-lg-6 o_setting_box" id="base_on_rule_shipping_costs_jd">
+                        <div class="o_setting_left_pane">
+                            <field name="module_delivery_jd_mix_rule"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="module_delivery_jd_mix_rule"/>
+                            <div class="text-muted">
+                                自定义成本并用京东装运
+                            </div>
+                            <div class="content-group"
+                                 attrs="{'invisible': [('module_delivery_jd_mix_rule','=',False)]}">
+                                <label for="jd_mix_rule_app_key"/>
+                                <div class="text-muted">
+                                    <field name="jd_mix_rule_app_key"/>
+                                </div>
+                                <label for="jd_mix_rule_app_secret"/>
+                                <div class="text-muted">
+                                    <field name="jd_mix_rule_app_secret"/>
+                                </div>
+                                <label for="jd_mix_rule_access_token"/>
+                                <div class="text-muted">
+                                    <field name="jd_mix_rule_access_token"/>
+                                </div>
+                                <label for="jd_mix_rule_customer_code"/>
+                                <div class="text-muted">
+                                    <field name="jd_mix_rule_customer_code"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

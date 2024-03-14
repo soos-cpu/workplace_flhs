@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="jd_mix_rule_b2c_parcel" model="stock.package.type">
+            <field name="name">京东快递B2C包裹</field>
+            <field name="max_weight">30.0</field>
+            <field name="package_carrier_type">jd_mix_rule</field>
+        </record>
+    </data>
+</odoo>

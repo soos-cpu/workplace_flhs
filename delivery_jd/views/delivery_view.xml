@@ -20,8 +20,10 @@
                             <!--                            <field name="jd_refresh_token"/>-->
                             <!--                            <field name="jd_refresh_expire"/>-->
                             <field name="jd_order_origin" attrs="{'required':[('delivery_type','=','jd')]}"/>
-                            <field name="jd_customer_code" attrs="{'required':[('jd_order_origin','=','1')]}"/>
-                            <field name="jd_business_unit_code" attrs="{'required':[('jd_order_origin','=','4')]}"/>
+                            <field name="jd_customer_code"
+                                   attrs="{'required':[('delivery_type','=','jd'), ('jd_order_origin','=','1')]}"/>
+                            <field name="jd_business_unit_code"
+                                   attrs="{'required':[('delivery_type','=','jd'),('jd_order_origin','=','4')]}"/>
                             <field name="jd_main_product_code" attrs="{'required':[('delivery_type','=','jd')]}"/>
                             <field name="jd_default_package_type_id" attrs="{'required':[('delivery_type','=','jd')]}"/>
                         </group>
