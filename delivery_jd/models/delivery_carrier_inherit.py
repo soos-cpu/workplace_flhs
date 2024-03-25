@@ -167,6 +167,10 @@ class DeliveryCarrier(models.Model):
         if not order:
             raise ValidationError(_('请核对源单据订单是否存在'))
         partner = order.partner_shipping_id or order.partner_id
+        weight_in_kg, volume_in_cm3 = self.jd_compute_order_weight_volume(order)
+        product_line = order.order_line.filtered(
+            lambda line: line.product_id.type != 'service' and line.product_uom_qty
+        )[0]
         val = {
             "orderId": picking.origin,
             "senderContact": {
@@ -190,10 +194,10 @@ class DeliveryCarrier(models.Model):
             "settleType": "3",
             "cargoes": [
                 {
-                    "name": order.order_line[0].product_id.name,
-                    "quantity": 1,
-                    "weight": 1,
-                    "volume": 10,
+                    "name": product_line.product_id.name,
+                    "quantity": product_line.product_uom_qty,
+                    "weight": float_round(weight_in_kg, precision_digits=2, rounding_method='UP'),
+                    "volume": float_round(volume_in_cm3, precision_digits=2, rounding_method='UP')
                 }
             ],
             "CommonChannelInfo": {
@@ -230,8 +234,9 @@ class DeliveryCarrier(models.Model):
     def jd_get_tracking_link(self, picking):
         return 'https://www.jdl.com/orderSearch/?waybillCodes=%s' % picking.carrier_tracking_ref
 
+    # 默认b2c业务
     def jd_get_default_custom_package_code(self):
-        return 'Delivery JD'
+        return 'b2c'
 
     # 暂时没有C2B业务
     # 通常是指从C端揽收送往B端，一般简称C2B业务。例如：图书回收、洗护业务、电商平台客户退货发起的逆向业务等业务场景

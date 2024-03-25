@@ -4,6 +4,7 @@
         <record id="jd_b2c_parcel" model="stock.package.type">
             <field name="name">京东快递B2C包裹</field>
             <field name="max_weight">30.0</field>
+            <field name="shipper_package_code">b2c</field>
             <field name="package_carrier_type">jd</field>
         </record>
 
