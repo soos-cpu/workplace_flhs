@@ -80,6 +80,13 @@ class DeliveryCarrier(models.Model):
             'jd_refresh_expire': to_utc(data['refreshExpire']),
         })
 
+    def _is_available_for_order(self, order):
+        res = super()._is_available_for_order(order)
+        if res and self.delivery_type == 'jd':
+            if not all([*self.get_jd_access_info(), self.jd_access_token]):
+                return False
+        return res
+
     def jd_new_api(self):
         return JDApi(
             *self.get_jd_access_info(), self.jd_access_token, self.log_xml, prod_environment=self.prod_environment,

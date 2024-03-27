@@ -14,12 +14,6 @@ class DeliveryCarrier(models.Model):
         ondelete={'jd_mix_rule': lambda recs: recs.write({'delivery_type': 'base_on_rule'})}
     )
 
-    def _is_available_for_order(self, order):
-        res = super()._is_available_for_order(order)
-        if res and self.delivery_type == 'jd_mix_rule':
-            return self.rate_shipment(order).get('success')
-        return res
-
     # ==========================================================================================
 
     @api.model

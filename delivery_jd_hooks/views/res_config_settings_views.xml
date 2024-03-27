@@ -17,20 +17,17 @@
                             <div class="text-muted">
                                 计算运输成本并用京东装运
                             </div>
-                            <div class="content-group">
-                                <div id="stock_delivery_jd"/>
+                            <div class="content-group" name="jd_api"
+                                 attrs="{'invisible':[('module_delivery_jd','=',False)]}">
+                                <label for="jd_app_key"/>
+                                <div class="text-muted">
+                                    <field name="jd_app_key" attrs="{'required':[('module_delivery_jd','=',True)]}"/>
+                                </div>
+                                <label for="jd_app_secret"/>
+                                <div class="text-muted">
+                                    <field name="jd_app_secret" attrs="{'required':[('module_delivery_jd','=',True)]}"/>
+                                </div>
                             </div>
-<!--                                                        <div class="content-group"-->
-<!--                                                             attrs="{'invisible': [('module_delivery_jd','=',False)]}">-->
-<!--                                                            <label for="jd_app_key"/>-->
-<!--                                                            <div class="text-muted">-->
-<!--                                                                <field name="jd_app_key"/>-->
-<!--                                                            </div>-->
-<!--                                                            <label for="jd_app_secret"/>-->
-<!--                                                            <div class="text-muted">-->
-<!--                                                                <field name="jd_app_secret"/>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
                         </div>
                     </div>
                 </xpath>
