@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, registry, SUPERUSER_ID, _
+from odoo import api, fields, models, registry, SUPERUSER_ID, _, tools
 from odoo.exceptions import ValidationError, UserError
 from odoo.addons.delivery_jd_mix_rule.api.jd_api import JDApi
 
@@ -35,8 +35,11 @@ class DeliveryCarrier(models.Model):
             *params[:3], self.log_xml, prod_environment=self.prod_environment,
         ), params[-1]
 
-    def jd_mix_rule_rate_shipment(self, order):
-        # 先驗證是否支持京東物流
+    @api.model
+    @tools.ormcache('order.id')
+    def _jd_mix_rule_rate_shipment(self, order):
+        if not order:
+            return False
         api, customer_code = self.jd_mix_rule_new_api()
         try:
             pre_check_result = api.ecap_v1_orders_precheck([{
@@ -52,9 +55,14 @@ class DeliveryCarrier(models.Model):
                     "productCode": "ed-m-0001",
                 }
             }]).json()
+            return pre_check_result.get('success')
         except Exception as e:
-            pre_check_result = {}
-        if not pre_check_result.get('success'):
+            return False
+
+    def jd_mix_rule_rate_shipment(self, order):
+        # 先驗證是否支持京東物流
+        success = self._jd_mix_rule_rate_shipment(order)
+        if not success:
             return {'success': False,
                     'price': 0.0,
                     'error_message': "地址不支持京東物流",
